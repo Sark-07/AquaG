@@ -1,59 +1,69 @@
 import React, { useState } from 'react'
-import { FileUpload } from '../../../@/components/ui/file-upload'
-
+import { Bounce, toast } from 'react-toastify';
 type Props = {}
 const Playground = (props: Props) => {
-    const [files, setFiles] = useState<File[]>([]);
-    const handleFileUpload = (files: File[]) => {
-        setFiles(files);
-        console.log(files);
+    const notify = (message: string) => toast.error(message, {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+    });
+    const [files, setFiles] = useState<File | undefined>(undefined);
+    const [fileInfo, setFileInfo] = useState<{ size: number, type: string } | null>(null);
+    const handleFileUpload = (file?: File) => {
+        if (file && file.size > 15 * 1024 * 1024) {
+            notify('Maximum file size supported is 15MB.');
+            return;
+        }
+        if (file && !['application/pdf', 'text/plain', 'document/*'].includes(file.type)) {
+            notify('File type not supported.');
+            return;
+        }
+        setFiles(file);
+        if (file) {
+            setFileInfo({ size: file.size, type: file.type });
+        } else {
+            setFileInfo(null);
+        }
     };
     return (
-        <div className='w-full h-screen flex items-center justify-center relative z-[999]'>
-            <div className="w-full max-w-4xl mx-auto min-h-96 border border-dashed bg-white dark:bg-gray-950/30 border-neutral-200 dark:border-neutral-800 rounded-lg">
-                <FileUpload onChange={handleFileUpload} />
+        // #171717
+        <div className='w-full h-screen flex items-center justify-center relative z-[999] '>
+            <div className='w-[80%] rounded-lg h-[80%] my-auto p-10 bg-dot-white/[0.09] overflow-y-auto'>
+                <div className='flex justify-center flex-col gap-3'>
+                    <div className='flex items-center justify-between'>
+                        <h1 className='text-2xl font-bold text-start dark:text-white'>What do you want to upload?</h1>
+                        {fileInfo && (
+                            <div className="flex gap-2">
+                                <div className='flex gap-2'>
+                                    <span className="text-gray-200">Size:</span>
+                                    <span className="font-medium dark:text-gray-400">{fileInfo.size / (1024 * 1024) < 1 ? (fileInfo.size / 1024).toFixed(2) + " KB" : (fileInfo.size / (1024 * 1024)).toFixed(2) + " MB"}</span>
+                                </div>
+                                <div className='flex gap-2'>
+                                    <span className="text-gray-200">Type:</span>
+                                    <span className="font-medium dark:text-gray-400">{fileInfo.type}</span>
+                                </div>
+                                <div className='flex gap-2'>
+                                    <span className="text-gray-200">Modified:</span>
+                                    <span className="font-medium dark:text-gray-400">{new Date(files?.lastModified || 0).toLocaleDateString()}</span>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                    <input type="file"
+                        onChange={(e) => handleFileUpload(e.target.files?.[0])}
+                        accept="application/pdf, text/plain, document/*"
+                        multiple={true}
+                        className="file text-white/45 bg-white/30 transition-all shadow-[0_8px_32px_0_rgba(31,38,135,0.15)] duration-300 px-4 py-3 rounded-md  hover:ring hover:ring-blue-500 focus:outline-none focus:ring focus:ring-blue-500"
+                    />
+                </div>
             </div>
         </div>
-        // <div className="theme-zinc w-full" style={{ '--radius': '0.5rem' } as React.CSSProperties}>
-        //     <div className="preview flex min-h-[350px] w-full justify-center p-2 sm:p-10 items-center">
-        //         <div className="w-full max-w-4xl mx-auto min-h-96 border border-dashed bg-white dark:bg-black border-neutral-200 dark:border-neutral-800 rounded-lg">
-        //             <div className="w-full" role="presentation" tabIndex={0}>
-        //                 <div className="p-10 group/file block rounded-lg cursor-pointer w-full relative overflow-hidden">
-        //                     <input id="file-upload-handle" className="hidden" type="file" />
-        //                     <div className="flex flex-col items-center justify-center">
-        //                         <p className="relative z-20 font-sans font-bold text-neutral-700 dark:text-neutral-300 text-base">
-        //                             Upload file
-        //                         </p>
-        //                         <p className="relative z-20 font-sans font-normal text-neutral-400 dark:text-neutral-400 text-base mt-2">
-        //                             Drag or drop your files here or click to upload
-        //                         </p>
-        //                         <div className="relative w-full mt-10 max-w-xl mx-auto">
-        //                             <div className="relative group-hover/file:shadow-2xl z-40 bg-white dark:bg-neutral-900 flex items-center justify-center h-32 mt-4 w-full max-w-[8rem] mx-auto rounded-md shadow-[0px_10px_50px_rgba(0,0,0,0.1)]">
-        //                                 <svg
-        //                                     xmlns="http://www.w3.org/2000/svg"
-        //                                     width="24"
-        //                                     height="24"
-        //                                     viewBox="0 0 24 24"
-        //                                     fill="none"
-        //                                     stroke="currentColor"
-        //                                     strokeWidth="2"
-        //                                     strokeLinecap="round"
-        //                                     strokeLinejoin="round"
-        //                                     className="h-4 w-4 text-neutral-600 dark:text-neutral-300"
-        //                                 >
-        //                                     <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path>
-        //                                     <path d="M7 9l5-5 5 5"></path>
-        //                                     <path d="M12 4l0 12"></path>
-        //                                 </svg>
-        //                             </div>
-        //                             <div className="absolute opacity-0 border border-dashed border-sky-400 inset-0 z-30 bg-transparent flex items-center justify-center h-32 mt-4 w-full max-w-[8rem] mx-auto rounded-md"></div>
-        //                         </div>
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //         </div>
-        //     </div>
-        // </div>
     )
 }
 

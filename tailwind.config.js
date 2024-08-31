@@ -3,7 +3,7 @@ const svgToDataUri = require("mini-svg-data-uri");
 import colors from "tailwindcss/colors";
 import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette";
 module.exports = {
-  darkMode: "class",
+  darkMode: "selector",
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
@@ -117,14 +117,14 @@ module.exports = {
         { values: flattenColorPalette(theme("backgroundColor")), type: "color" }
       );
     },
-    function ({ addBase, theme }) {
-      let allColors = flattenColorPalette(theme("colors"));
-      let newVars = Object.fromEntries(
-        Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
-      );
-      addBase({
-        ":root": newVars,
-      });
-    }
+    // function ({ addBase, theme }) {
+    //   let allColors = flattenColorPalette(theme("colors"));
+    //   let newVars = Object.fromEntries(
+    //     Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+    //   );
+    //   addBase({
+    //     ":root": newVars,
+    //   });
+    // }
   ],
 }

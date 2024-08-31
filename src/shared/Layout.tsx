@@ -3,13 +3,15 @@ import Footer from './Footer'
 import Navbar from './Navbar'
 import { Outlet } from 'react-router-dom'
 import {useLocation} from 'react-router-dom'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type Props = {}
 
 const Layout = (props: Props) => {
   const location = useLocation()
   return (
-    <main className='w-full min-h-screen bg-gray-950 relative overflow-hidden flex flex-col dark'>
+    <main className='w-full min-h-screen bg-gray-950 relative overflow-hidden flex flex-col'>
       {
         location.pathname !== '/' && (<div
           aria-hidden='true'
@@ -26,6 +28,7 @@ const Layout = (props: Props) => {
       <Navbar />
       <Outlet />
       <Footer />
+      <ToastContainer />
     </main>
   )
 }
