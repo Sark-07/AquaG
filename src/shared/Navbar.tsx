@@ -15,8 +15,8 @@ const Navbar = (props: Props) => {
         </a>
         <ul className='flex items-center gap-4 font-inter'>
 
-            <li className={`text-white text-base hover:text-yellow-400 transition-all duration-300 font-medium ${location.pathname === '/' ? 'text-yellow-400' : ''}`}><Link to="/">Home</Link></li>
-            <li className={`text-white text-base hover:text-yellow-400 transition-all duration-300 font-medium ${location.pathname === '/playground' ? 'text-yellow-400' : ''}`}><Link to="/playground">Playground</Link></li>
+            <li className={`text-white text-base hover:text-blue-400 transition-all duration-300 font-medium ${location.pathname === '/' ? 'text-blue-400' : ''}`}><Link to="/">Home</Link></li>
+            <li className={`text-white text-base hover:text-blue-400 transition-all duration-300 font-medium ${location.pathname === '/playground' ? 'text-blue-400' : ''}`}><Link to="/playground">Playground</Link></li>
         </ul>
     </div>
    </nav>
