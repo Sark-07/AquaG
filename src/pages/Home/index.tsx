@@ -1,5 +1,5 @@
 import React from 'react'
-import Hero from '../../sections/Hero/Index'
+import Hero from '../../sections/Hero'
 
 type Props = {}
 

@@ -1,3 +1,8 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
+
+@font-face {
+  font-family: wild-ride;
+  src: url("./assets/wild-ride-family_woff/wild-ride.regular.woff");
+}

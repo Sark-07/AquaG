@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ["class"],
+  darkMode: "class",
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
@@ -19,6 +19,9 @@ module.exports = {
     extend: {
       animation: {
         spotlight: "spotlight 2s ease .75s 1 forwards",
+      },
+      fontFamily: {
+        wildRide: ["wild-ride", "sans-serif"],
       },
       keyframes: {
         spotlight: {
