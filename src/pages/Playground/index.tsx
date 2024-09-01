@@ -15,7 +15,7 @@ const Playground = (props: Props) => {
     });
     const [files, setFiles] = useState<File | undefined>(undefined);
     const [fileInfo, setFileInfo] = useState<{ size: number, type: string } | null>(null);
-    const handleFileUpload = (file?: File) => {
+    const handleFileChange = (file?: File) => {
         if (file && file.size > 15 * 1024 * 1024) {
             notify('Maximum file size supported is 15MB.');
             return;
@@ -31,12 +31,19 @@ const Playground = (props: Props) => {
             setFileInfo(null);
         }
     };
+    const handleUpload = () => {
+        if (!files) {
+            notify('No file selected.');
+            return;
+        }
+        console.log(files);
+    };
     return (
         // #171717
         <div className='w-full h-screen flex items-center justify-center relative z-[999] '>
             <div className='w-[80%] rounded-lg h-[80%] my-auto p-10 bg-dot-white/[0.09] overflow-y-auto'>
-                <div className='flex justify-center flex-col gap-3'>
-                    <div className='flex items-center justify-between'>
+                <div className='flex justify-center flex-col gap-3 w-full'>
+                    <div className='flex items-baseline justify-between'>
                         <h1 className='text-2xl font-bold text-start dark:text-white'>What do you want to upload?</h1>
                         {fileInfo && (
                             <div className="flex gap-2">
@@ -55,12 +62,17 @@ const Playground = (props: Props) => {
                             </div>
                         )}
                     </div>
-                    <input type="file"
-                        onChange={(e) => handleFileUpload(e.target.files?.[0])}
-                        accept="application/pdf, text/plain, document/*"
-                        multiple={true}
-                        className="file text-white/45 bg-white/30 transition-all shadow-[0_8px_32px_0_rgba(31,38,135,0.15)] duration-300 px-4 py-3 rounded-md  hover:ring hover:ring-blue-500 focus:outline-none focus:ring focus:ring-blue-500"
-                    />
+                    <div className='flex w-full gap-3'>
+                        <input type="file"
+                            onChange={(e) => handleFileChange(e.target.files?.[0])}
+                            accept="application/pdf, text/plain, document/*"
+                            multiple={true}
+                            className="file w-full text-white/45 bg-white/30 transition-all shadow-[0_8px_32px_0_rgba(31,38,135,0.15)] duration-300 px-4 py-3 rounded-md  hover:ring hover:ring-blue-500 focus:outline-none focus:ring focus:ring-blue-500"
+                        />
+                        <div className='flex justify-center items-center'>
+                            <button onClick={handleUpload} className='bg-blue-500 text-white px-4 py-3 rounded-md'>Upload</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
