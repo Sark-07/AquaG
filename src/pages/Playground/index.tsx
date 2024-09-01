@@ -41,7 +41,7 @@ const Playground = (props: Props) => {
     return (
         // #171717
         <div className='w-full h-screen flex items-center justify-center relative z-[999] '>
-            <div className='w-[80%] rounded-lg h-[80%] my-auto p-10 bg-dot-white/[0.09] overflow-y-auto'>
+            <div className='w-[80%] h-[80%] justify-start gap-8 px-10 pb-6 pt-10 flex flex-col'>
                 <div className='flex justify-center flex-col gap-3 w-full'>
                     <div className='flex items-baseline justify-between'>
                         <h1 className='text-2xl font-bold text-start dark:text-white'>What do you want to upload?</h1>
@@ -72,6 +72,11 @@ const Playground = (props: Props) => {
                         <div className='flex justify-center items-center'>
                             <button onClick={handleUpload} className='bg-blue-500 text-white px-4 py-3 rounded-md'>Upload</button>
                         </div>
+                    </div>
+                </div>
+                <div className='bg-dot-white/[0.09] overflow-y-auto rounded-lg h-full border'>
+                    <div className='flex justify-center flex-col items-start h-full '>
+                        {/* TODO: Add code to display the results from gemini */}
                     </div>
                 </div>
             </div>
