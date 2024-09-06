@@ -11,7 +11,7 @@ type Props = {}
 const Layout = (props: Props) => {
   const location = useLocation()
   return (
-    <main className='w-full min-h-screen bg-gray-950 relative overflow-hidden flex flex-col'>
+    <main className='w-full min-h-screen bg-gray-900 relative overflow-hidden flex flex-col'>
       {
         location.pathname !== '/' && (<div
           aria-hidden='true'

@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
 import { Bounce, toast } from 'react-toastify';
+import ReactMarkdown from 'react-markdown';
+import axios from "axios";
+
 type Props = {}
 const Playground = (props: Props) => {
+    const url = import.meta.env.VITE_SERVER_URL+'query';
     const notify = (message: string) => toast.error(message, {
         position: "bottom-left",
         autoClose: 5000,
@@ -15,9 +19,10 @@ const Playground = (props: Props) => {
     });
     const [files, setFiles] = useState<File | undefined>(undefined);
     const [fileInfo, setFileInfo] = useState<{ size: number, type: string } | null>(null);
+    const [data, setData] = useState<any[] | null>(null);
     const handleFileChange = (file?: File) => {
-        if (file && file.size > 15 * 1024 * 1024) {
-            notify('Maximum file size supported is 15MB.');
+        if (file && file.size > 10 * 1024 * 1024) {
+            notify('Maximum file size supported is 10MB.');
             return;
         }
         if (file && !['application/pdf', 'text/plain', 'document/*'].includes(file.type)) {
@@ -31,10 +36,24 @@ const Playground = (props: Props) => {
             setFileInfo(null);
         }
     };
-    const handleUpload = () => {
+    const handleUpload = async (event: any) => {
+        event.preventDefault();
         if (!files) {
             notify('No file selected.');
             return;
+        }
+        const formData = new FormData();
+        formData.append('file', files);
+        try {
+            const response = await axios.post(url, formData);
+            console.log(response.data.data)
+            if (response.status == 200) {
+                setData(JSON.parse(response.data.data).response);
+            } else {
+                alert("Failed to upload file.");
+            }
+        } catch (error: any) {
+            alert(error.message);
         }
         console.log(files);
     };
@@ -70,14 +89,27 @@ const Playground = (props: Props) => {
                             className="file w-full text-white/45 bg-white/30 transition-all shadow-[0_8px_32px_0_rgba(31,38,135,0.15)] duration-300 px-4 py-3 rounded-md  hover:ring hover:ring-blue-500 focus:outline-none focus:ring focus:ring-blue-500"
                         />
                         <div className='flex justify-center items-center'>
-                            <button onClick={handleUpload} className='bg-blue-500 text-white px-4 py-3 rounded-md'>Upload</button>
+                            <button onClick={e => handleUpload(e)} className='bg-blue-500 text-white px-4 py-3 rounded-md'>Upload</button>
                         </div>
                     </div>
                 </div>
                 <div className='bg-dot-white/[0.09] overflow-y-auto rounded-lg h-full border'>
-                    <div className='flex justify-center flex-col items-start h-full '>
-                        {/* TODO: Add code to display the results from gemini */}
-                    </div>
+                    {/* <div className='flex justify-center flex-col items-start h-full '> */}
+                        {data && data.map((item, index) => (
+                            <div key={index} className="p-6 border-b border-gray-200">
+                                <h2 className="text-xl font-semibold  mb-2">
+                                    <ReactMarkdown>
+                                        {index + 1 + ")" + item.question}
+                                    </ReactMarkdown>
+                                </h2>
+                                <p className="text-gray-300">
+                                    <ReactMarkdown>
+                                        {item.answer}
+                                    </ReactMarkdown>
+                                </p>
+                            </div>
+                        ))}
+                    {/* </div> */}
                 </div>
             </div>
         </div>
