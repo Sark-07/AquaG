@@ -2,10 +2,13 @@ import React, { useState } from 'react'
 import { Bounce, toast } from 'react-toastify';
 import ReactMarkdown from 'react-markdown';
 import axios from "axios";
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 type Props = {}
 const Playground = (props: Props) => {
-    const url = import.meta.env.VITE_SERVER_URL+'query';
+    const [isLoading, setIsLoading] = useState(false);
+    const url = import.meta.env.VITE_SERVER_URL + 'query';
     const notify = (message: string) => toast.error(message, {
         position: "bottom-left",
         autoClose: 5000,
@@ -42,6 +45,7 @@ const Playground = (props: Props) => {
             notify('No file selected.');
             return;
         }
+        setIsLoading(true)
         const formData = new FormData();
         formData.append('file', files);
         try {
@@ -55,7 +59,7 @@ const Playground = (props: Props) => {
         } catch (error: any) {
             alert(error.message);
         }
-        console.log(files);
+        setIsLoading(false)
     };
     return (
         // #171717
@@ -94,21 +98,31 @@ const Playground = (props: Props) => {
                     </div>
                 </div>
                 <div className='bg-dot-white/[0.09] overflow-y-auto rounded-lg h-full border'>
-                    {/* <div className='flex justify-center flex-col items-start h-full '> */}
-                        {data && data.map((item, index) => (
+                    {isLoading ? (
+                        <>
+                            {[...Array(5)].map((_, index) => (
+                                <SkeletonTheme baseColor="#5d7f93" highlightColor="#444" >
+                                    <p key={index} className='mb-4'>
+                                        <Skeleton enableAnimation={true} width={"40vw"} height={"3vh"} />
+                                        <Skeleton enableAnimation={true} height={"2.5vh"} count={3} />
+                                    </p>
+                                </SkeletonTheme>
+                            ))}
+                        </>
+                    ) : (
+                        data &&
+                        data.map((item, index) => (
                             <div key={index} className="p-6 border-b border-gray-200">
-                                <h2 className="text-xl font-semibold  mb-2">
-                                    <ReactMarkdown>
-                                        {index + 1 + ")" + item.question}
-                                    </ReactMarkdown>
+                                <h2 className="text-xl font-semibold mb-2">
+                                    <ReactMarkdown>{`${index + 1}) ${item.question}`}</ReactMarkdown>
                                 </h2>
                                 <p className="text-gray-300">
-                                    <ReactMarkdown>
-                                        {item.answer}
-                                    </ReactMarkdown>
+                                    <ReactMarkdown>{item.answer}</ReactMarkdown>
                                 </p>
                             </div>
-                        ))}
+                        ))
+                    )}
+
                     {/* </div> */}
                 </div>
             </div>

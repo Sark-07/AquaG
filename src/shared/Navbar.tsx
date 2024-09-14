@@ -13,7 +13,7 @@ const Navbar = (props: Props) => {
             <img src={`/favicon.png`} alt="logo" className='w-10 h-10' />
             <p className='text-3xl  font-bold font-sans bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-500'>
               {/* AQuA-G */}
-              <a href="https://www.fontspace.com/category/fancy"><img src="https://see.fontimg.com/api/rf5/WyMWG/MGFiMDVkNTc1ZjZkNGE4Mjg0M2Q2NzMxYWMyNGEyYjUudHRm/QVF1QS1H/mouldy-cheese-regular.png?r=fs&h=32&w=1000&fg=FFFFFF&bg=353D4B&tb=1&s=64" alt="Fancy fonts"/></a>
+              <a href="/"><img src="https://see.fontimg.com/api/rf5/WyMWG/MGFiMDVkNTc1ZjZkNGE4Mjg0M2Q2NzMxYWMyNGEyYjUudHRm/QVF1QS1H/mouldy-cheese-regular.png?r=fs&h=32&w=1000&fg=FFFFFF&bg=353D4B&tb=1&s=64" alt="Fancy fonts"/></a>
             </p>
         </a>
         <ul className='flex items-center gap-4 font-inter'>

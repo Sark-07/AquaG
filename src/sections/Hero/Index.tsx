@@ -1,5 +1,6 @@
 import React from 'react'
 import {Spotlight} from '../../../@/components/ui/spotlight'
+import './Hero.css'
 type Props = {}
 
 const Hero = (props: Props) => {
@@ -11,14 +12,24 @@ const Hero = (props: Props) => {
     />
     <div className=" p-4 max-w-7xl  mx-auto relative z-10  w-full pt-20 md:pt-0">
       <h1 className="text-4xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 bg-opacity-50">
-        Spotlight <br /> is the new trend.
+          Enhance Your Learning with AQuQ-G
       </h1>
-      <p className="mt-4 font-normal text-base text-neutral-300 max-w-lg text-center mx-auto">
-        Spotlight effect is a great way to draw attention to a specific part
-        of the page. Here, we are drawing the attention towards the text
-        section of the page. I don&apos;t know why but I&apos;m running out of
-        copy.
-      </p>
+      <div className="container">
+        <p>Bridge the gap in your self-study journey with contextual and accurate responses tailored to your study materials.</p>
+
+        <h2>Why Choose Our AI-powered System?</h2>
+        <ul className="features">
+            <li><span className="highlight">Contextual Questions:</span> Get relevant questions based on what you need to know.</li>
+            <li><span className="highlight">Accurate Answers:</span> Receive precise and detailed answers to enhance your learning.</li>
+            <li><span className="highlight">Cutting-edge Technology:</span> Harness the power of state-of-the-art AI for deeper insights.</li>
+            <li><span className="highlight">User-friendly Interface:</span> Navigate with ease and stay focused on what matters.</li>
+            <li><span className="highlight">Privacy First:</span> No data storage, ensuring your privacy and security.</li>
+            <li><span className="highlight">File Support:</span> Upload PDFs and DOC files for quick and easy access to relevant content.</li>
+        </ul>
+
+        <p>Level up your study routine today and unlock the full potential of AI in education!</p>
+        <a href="/playground" className="cta mt-4">Get Started Now</a>
+    </div>
     </div>
   </div>
   )
