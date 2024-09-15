@@ -54,10 +54,10 @@ const Playground = (props: Props) => {
             if (response.status == 200) {
                 setData(JSON.parse(response.data.data).response);
             } else {
-                alert("Failed to upload file.");
+                notify("Failed to upload file.");
             }
         } catch (error: any) {
-            alert(error.message);
+            notify(error.message);
         }
         setIsLoading(false)
     };
@@ -97,14 +97,14 @@ const Playground = (props: Props) => {
                         </div>
                     </div>
                 </div>
-                <div className='bg-dot-white/[0.09] overflow-y-auto rounded-lg h-full border'>
+                <div className='bg-dot-white/[0.09] overflow-y-auto rounded-lg h-full border py-5 px-8'>
                     {isLoading ? (
                         <>
-                            {[...Array(5)].map((_, index) => (
+                            {[...Array(4)].map((_, index) => (
                                 <SkeletonTheme baseColor="#5d7f93" highlightColor="#444" >
                                     <p key={index} className='mb-4'>
-                                        <Skeleton enableAnimation={true} width={"40vw"} height={"3vh"} />
-                                        <Skeleton enableAnimation={true} height={"2.5vh"} count={3} />
+                                        <Skeleton enableAnimation={true} width={"60%"} height={"3vh"} />
+                                        <Skeleton enableAnimation={true} height={"2.5vh"} width={"95%"} count={3} />
                                     </p>
                                 </SkeletonTheme>
                             ))}

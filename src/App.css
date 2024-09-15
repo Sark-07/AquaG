@@ -7,6 +7,16 @@
   src: url("./assets/wild-ride-family_woff/wild-ride.regular.woff");
 }
 
+@font-face {
+  font-family: waltograph;
+  src: url("./assets/waltograph-family_woff/waltograph.ui-bold.woff");
+}
+
+@font-face {
+  font-family: koolbeans;
+  src: url("./assets/kool-beans_woff/kool-beans.regular.woff");
+}
+
 .file::-webkit-file-upload-button {
   background: transparent;
   border: none;

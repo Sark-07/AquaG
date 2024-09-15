@@ -25,6 +25,8 @@ module.exports = {
       },
       fontFamily: {
         wildRide: ["wild-ride", "sans-serif"],
+        waltograph: ["waltograph", "sans-serif"],
+        koolBeans: ["koolbeans", "sans-serif"]
       },
       keyframes: {
         spotlight: {
