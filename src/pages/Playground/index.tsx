@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Bounce, toast } from 'react-toastify';
-import ReactMarkdown from 'react-markdown';
 import axios from "axios";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
@@ -112,18 +111,15 @@ const Playground = (props: Props) => {
                     ) : (
                         data &&
                         data.map((item, index) => (
-                            <div key={index} className="p-6 border-b border-gray-200">
-                                <h2 className="text-xl font-semibold mb-2">
-                                    <ReactMarkdown>{`${index + 1}) ${item.question}`}</ReactMarkdown>
-                                </h2>
-                                <p className="text-gray-300">
-                                    <ReactMarkdown>{item.answer}</ReactMarkdown>
-                                </p>
-                            </div>
+                            <ul key={index} className="py-4 border-b ">
+                                <li className="flex items-center">
+                                    <span className="text-lg font-medium">{`${index + 1}. `}</span>
+                                    <span className="text-lg pl-2">{item.question}</span>
+                                </li>
+                                <li className="text-gray-400 pl-5 text-wrap ">{item.answer}</li>
+                            </ul>
                         ))
                     )}
-
-                    {/* </div> */}
                 </div>
             </div>
         </div>
